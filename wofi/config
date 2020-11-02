@@ -4,6 +4,5 @@ prompt=>>
 hide_scroll=true
 allow_images=true
 term=alacritty
-style=./woff.css
 lines=5
 columns=2
