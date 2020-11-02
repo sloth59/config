@@ -11,7 +11,7 @@ set $term alacritty
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi --show drun -I -G | xargs swaymsg exec --
+set $menu wofi | xargs swaymsg exec --
 
 ### Output configuration
 # wallpaper
