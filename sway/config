@@ -1,63 +1,37 @@
 # sway configuration file
 
 set $mod Mod4
-
 set $left h
 set $down j
 set $up k
 set $right l
-
 set $term alacritty
-
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
 set $menu wofi | xargs swaymsg exec --
+
 
 ### Output configuration
 # wallpaper
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
 ### Idle configuration
-#
-# Example configuration:
-#
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
-#
-# Example configuration:
-#
 input "1267:12433:ELAN0504:00_04F3:3091_Touchpad" {
 	dwt enabled
 	tap enabled
 	natural_scroll enabled
 	middle_emulation enabled
 }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
-
 # Basics:
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+q kill
     bindsym $mod+d exec $menu
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
     floating_modifier $mod normal
 
     # Reload the configuration file
@@ -98,7 +72,6 @@ input "1267:12433:ELAN0504:00_04F3:3091_Touchpad" {
     bindsym $mod+7 workspace number 7
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
 
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
@@ -109,9 +82,6 @@ input "1267:12433:ELAN0504:00_04F3:3091_Touchpad" {
     bindsym $mod+Shift+7 move container to workspace number 7
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
 
 # Layout
     bindsym $mod+b splith
@@ -122,9 +92,7 @@ input "1267:12433:ELAN0504:00_04F3:3091_Touchpad" {
     bindsym $mod+e layout toggle split
 
     bindsym $mod+f fullscreen
-
     bindsym $mod+Shift+space floating toggle
-
     bindsym $mod+space focus mode_toggle
 
     bindsym $mod+a focus parent
@@ -150,14 +118,14 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5%
 bindsym XF86AudioMute exec pactl set-sink-mute  $(pacmd list-sinks |awk '/* index:/{print $3}') toggle
 
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
-set $screenshot grim $HOME/screenshot/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
+set $screenshot grim $HOME/screenshot/scrn-$(date +"%Y-%m-%d-%I-%M-%p").png
 bindsym Print exec $screenshot
 
 bar {
