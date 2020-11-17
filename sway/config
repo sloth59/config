@@ -126,7 +126,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
 set $screenshot grim $HOME/Pictures/scrn-$(date +"%Y-%m-%d-%I-%M-%p").png
-bindsym Print exec $screenshot
+bindsym Print exec $screenshot && notify-send SCREEN_SHOT
 
 bar {
 	swaybar_command waybar
