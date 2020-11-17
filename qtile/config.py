@@ -164,7 +164,7 @@ screens = [
                     countdown_start=1,
                     fmt='   ',
                 ),
-                widget.Notify(),
+                #widget.Notify(),
             ],
             30,
         ),
