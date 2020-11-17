@@ -28,5 +28,5 @@ set noshowmode
 let g:lightline={ 'colorscheme': 'dracula', }
 
 
-" all colorscheme follow terminal background
+" current colorscheme follows terminal background
 hi Normal ctermbg=NONE guibg=NONE
