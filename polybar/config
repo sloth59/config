@@ -1,5 +1,4 @@
 
-
 [colors]
 background = #222
 background-alt = #444
@@ -15,15 +14,14 @@ font-1 = Font Awesome 5 Free:pixelsize=12;2
 font-2 = Font Awesome 5 Free Solid:pixelsize=12;2
 font-3 = Font Awesome 5 Brands:pixelsize=12;2
 
-;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 27
+height = 35
 ;offset-x = 1%
 ;offset-y = 1%
-radius = 6.0
+radius = 0.0
 fixed-center = false
-bottom=true
 
+; bottom=true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
@@ -41,9 +39,8 @@ module-margin-right = 2
 
 modules-left = bspwm
 modules-center = mpd
-modules-right = filesystem backlight-acpi pulseaudio xkeyboard memory cpu wlan battery temperature date powermenu
+modules-right = xkeyboard filesystem pulseaudio wlan battery temperature date powermenu
 
-tray-position = right
 tray-padding = 2
 ;tray-background = #0063ff
 
@@ -62,15 +59,11 @@ label = %title:0:30:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard
-format-prefix = "  "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
+format-prefix = "   "
 label-layout = %layout%
-label-layout-underline = ${colors.secondary}
 label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
 
 [module/filesystem]
 type = internal/fs
@@ -97,7 +90,7 @@ label-empty-padding = 2
 
 [module/mpd]
 type = internal/mpd
-format-online =   <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
 icon-prev = "  "
 icon-stop = "  "
 icon-play = "  "
@@ -105,40 +98,16 @@ icon-pause = "  "
 icon-next = "  "
 label-song-ellipsis = true
 
-[module/xbacklight]
-type = internal/xbacklight
-format = <label> <bar>
-label =  
-bar-width = 10
-bar-indicator = |
-bar-indicator-foreground = #fff
-bar-indicator-font = 2
-bar-fill = ─
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = ─
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
-
-[module/backlight-acpi]
-inherit = module/xbacklight
-type = internal/backlight
-card = intel_backlight
-
 [module/cpu]
 type = internal/cpu
 interval = 2
 format-prefix = "  "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
 label = %percentage:2%%
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "  "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+format-prefix = "   "
 label = %percentage_used%%
 
 [module/wlan]
@@ -146,74 +115,32 @@ type = internal/network
 interface = wlp4s0
 interval = 3.0
 format-connected =   <label-connected>
-format-connected-underline = #9f78e1
 label-connected = %essid%
-format-disconnected = Disconnected 
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
+format-disconnected = Disconnected
 
 [module/date]
 type = internal/date
 interval = 5
-date =
-date-alt = " %Y-%m-%d "
-time = %I:%M %p
-time-alt = %I:%M %p
-format-prefix = "  "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+time =   %I:%M %p
+time-alt =   %Y-%m-%d
 label = %date% %time%
 
 [module/pulseaudio]
 type = internal/pulseaudio
-format-volume = <label-volume> <bar-volume>
+format-volume = <label-volume>
 label-volume =   %percentage%%
 label-volume-foreground = ${root.foreground}
 label-muted =   muted
 label-muted-foreground = #666
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/alsa]
 type = internal/alsa
-format-volume = <label-volume> <bar-volume>
-label-volume =  
+format-volume = <label-volume>
+label-volume =   %percentage%%
 label-volume-foreground = ${root.foreground}
 format-muted-prefix = "  "
 format-muted-foreground = ${colors.foreground-alt}
 label-muted =  muted
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/battery]
 type = internal/battery
@@ -221,43 +148,33 @@ battery = BAT1
 adapter = ACAD
 full-at = 98
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
 format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
 format-full-prefix = "  "
 format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
-ramp-capacity-0 =  
+ramp-capacity-0 = 
 ramp-capacity-1 = 
-ramp-capacity-2 =  
-ramp-capacity-foreground = ${colors.foreground-alt}
-animation-charging-0 =  
-animation-charging-1 =  
-animation-charging-2 =  
-animation-charging-foreground = ${colors.foreground-alt}
+ramp-capacity-2 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
 animation-charging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-label = %temperature-c%
+format-prefix = " "
+format = <label>
+format-warn = <label-warn>
+label =  %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]
 type = custom/menu
 expand-right = true
 format-spacing = 1
-label-open =  
+label-open = 
 label-open-foreground = ${colors.secondary}
 label-close = cancel
 label-close-foreground = ${colors.secondary}
@@ -271,11 +188,6 @@ menu-0-1-exec = poweroff
 
 [settings]
 screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = false
 
 [global/wm]
 margin-top = 0
