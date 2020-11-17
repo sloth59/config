@@ -14,6 +14,10 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
 	brightnessctl s 5%-
 
+Print
+scrot /home/sloth/Pictures/'shot_%Y_%m_%d_%H_%M_%S.png' && notify-send SCREEN_SHOT
+
+
 super + Return
 	alacritty
 
@@ -23,8 +27,6 @@ super + d
 # make sxhkd reload its configuration files:
 super + shift + r
 	pkill -USR1 -x sxhkd
-
-
 
 
 
