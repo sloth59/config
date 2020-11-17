@@ -68,7 +68,7 @@ keys = [
         lazy.spawn("brightnessctl s 5%-")),
 
     Key([], "Print",
-        lazy.spawn("scrot /home/sloth/screenshot/'shot_%Y_%m_%d_%H_%M_%S.png'"),
+        lazy.spawn("scrot /home/sloth/Pictures/'shot_%Y_%m_%d_%H_%M_%S.png'"),
         lazy.spawn("notify-send SCREEN_SHOT")),
 
 ]
