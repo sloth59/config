@@ -1,0 +1,13 @@
+configuration {
+	modi: "run,drun,window";
+	width: 50;
+  lines: 8;
+	columns: 2;
+	font: "mono 15";
+	fixed-num-lines: true;
+	show-icons: true;
+	hide-scrollbar: true;
+	terminal: "rofi-sensible-terminal";
+	theme:"solarized" ;
+	disable-history: true;
+}
