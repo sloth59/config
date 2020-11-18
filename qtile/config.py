@@ -1,4 +1,3 @@
-
 from typing import List  # noqa: F401
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Screen
@@ -8,10 +7,10 @@ from libqtile.utils import guess_terminal
 import os
 import subprocess
 
-@hook.subscribe.startup
+home = os.path.expanduser('~')
+@hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~')
-    subprocess.Popen([home + '/.config/qtile/autostart.sh'])
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -68,7 +67,7 @@ keys = [
         lazy.spawn("brightnessctl s 5%-")),
 
     Key([], "Print",
-        lazy.spawn("scrot /home/sloth/Pictures/'shot_%Y_%m_%d_%H_%M_%S.png'"),
+        lazy.spawn("scrot "+home+"/Pictures/screenshots/'shot_%Y_%m_%d_%H_%M_%S.png'"),
         lazy.spawn("notify-send SCREEN_SHOT")),
 
 ]
