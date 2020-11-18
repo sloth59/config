@@ -1,3 +1,12 @@
+[colors]
+background = #222
+background-alt = #444
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
 [bar/example]
 font-0 = fixed:pixelsize=12;2
 font-1 = Font Awesome 5 Free:pixelsize=12;2
@@ -93,7 +102,8 @@ interface = wlp4s0
 interval = 3.0
 format-connected =   <label-connected>
 label-connected = %essid%
-format-disconnected = Disconnected
+format-disconnected =   Disconnected
+format-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
 type = internal/date
