@@ -110,7 +110,7 @@ super + {Left,Down,Up,Right}
 ###GAPS
 # Toggle gaps
 super + shift + d
-	bspc config window_gap {0,15}
+	bspc config window_gap {0,8}
 
 # Increase/descrease gap size
 super { ,+ shift }+ z
