@@ -1,4 +1,3 @@
-
 XF86AudioRaiseVolume
 	pactl set-sink-volume @DEFAULT_SINK@ +5%
 
@@ -15,14 +14,14 @@ XF86MonBrightnessDown
 	brightnessctl s 5%-
 
 Print
-	scrot /home/sloth/Pictures/'shot_%Y_%m_%d_%H_%M_%S.png' && notify-send SCREEN_SHOT
+	scrot $HOME/Pictures/screenshots/'shot_%Y_%m_%d_%H_%M_%S.png' && notify-send SCREEN_SHOT
 
 
 super + Return
 	alacritty
 
 super + d
-	rofi -modi run,drun,window -show drun -show-icons
+	rofi -show drun
 
 # make sxhkd reload its configuration files:
 super + shift + r
@@ -46,13 +45,13 @@ super + {_,shift + }q
 super + m
 	bspc desktop -l next
 
-# send the newest marked node to the newest preselected node
-super + y
-	bspc node newest.marked.local -n newest.!automatic.local
-
 # swap the current node and the biggest window
 super + g
 	bspc node -s biggest.window
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
 
 
 
@@ -79,7 +78,6 @@ super + {_,shift + }{1-9,0}
 # focus the node for the given path jump
 super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
-
 
 
 
@@ -117,4 +115,3 @@ super + shift + d
 # Increase/descrease gap size
 super { ,+ shift }+ z
 	bspc config window_gap $(($(bspc config window_gap) {+,-} 3))
-
