@@ -6,3 +6,4 @@ allow_images=true
 term=alacritty
 lines=5
 columns=2
+no_actions=true
