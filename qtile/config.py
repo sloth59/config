@@ -1,4 +1,6 @@
+
 from typing import List  # noqa: F401
+
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
@@ -12,10 +14,28 @@ home = os.path.expanduser('~')
 def autostart():
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
+
 mod = "mod4"
 terminal = guess_terminal()
 
 keys = [
+
+    Key([mod], "k",
+        lazy.layout.down(),
+        desc="Move focus down in stack pane"),
+
+    Key([mod], "j",
+        lazy.layout.up(),
+        desc="Move focus up in stack pane"),
+
+    Key([mod, "control"], "k",
+        lazy.layout.shuffle_down(),
+        desc="Move window down in current stack "),
+
+    Key([mod, "control"], "j",
+        lazy.layout.shuffle_up(),
+        desc="Move window up in current stack "),
+
     Key([mod], "space",
         lazy.layout.next(),
         desc="Switch window focus to other pane(s) of stack"),
@@ -28,28 +48,30 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
 
-    Key([mod], "Return", lazy.spawn(terminal),),
-    Key([mod], "Tab", lazy.next_layout(),),
-    Key([mod], "w", lazy.window.kill(),),
-    Key([mod, "control"], "r", lazy.restart(),),
-    Key([mod, "control"], "q", lazy.shutdown(),),
-    Key([mod], "r", lazy.spawncmd(),),
+    Key([mod], "Return",
+        lazy.spawn(terminal),
+        desc="Launch terminal"),
 
-    Key([mod], "f", lazy.window.toggle_fullscreen(),),
-    Key([mod], "t", lazy.window.toggle_floating(),),
+    Key([mod], "Tab",
+        lazy.next_layout(),
+        desc="Toggle between layouts"),
 
-    Key([mod], "h", lazy.layout.left()),
-    Key([mod], "j", lazy.layout.down(),),
-    Key([mod], "l", lazy.layout.right()),
-    Key([mod], "k", lazy.layout.up(),),
-    Key([mod, "control"], "h", lazy.layout.shuffle_left()),
-    Key([mod, "control"], "j", lazy.layout.shuffle_down(),),
-    Key([mod, "control"], "k", lazy.layout.shuffle_up(),),
-    Key([mod, "control"], "l", lazy.layout.shuffle_right()),
-    Key([mod, "shift"], "h", lazy.layout.grow_left()),
-    Key([mod, "shift"], "j", lazy.layout.grow_down()),
-    Key([mod, "shift"], "k", lazy.layout.grow_up()),
-    Key([mod, "shift"], "l", lazy.layout.grow_right()),
+    Key([mod], "w",
+        lazy.window.kill(),
+        desc="Kill focused window"),
+
+    Key([mod, "control"], "r",
+        lazy.restart(),
+        desc="Restart qtile"),
+
+    Key([mod, "control"], "q",
+        lazy.shutdown(),
+        desc="Shutdown qtile"),
+
+    Key([mod], "r",
+        lazy.spawncmd(),
+        desc="Spawn a command using a prompt widget"),
+
 
     Key([], "XF86AudioMute",
         lazy.spawn("amixer -q set Master toggle")),
@@ -76,6 +98,7 @@ groups = [Group(i) for i in "123456789"]
 
 for i in groups:
     keys.extend([
+
         Key([mod], i.name,
             lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
@@ -94,10 +117,7 @@ layouts = [
         margin=5,
     ),
     # Try more layouts by unleashing below layouts.
-    layout.Bsp(
-        margin=5,
-        fair=False,
-    ),
+    # layout.Bsp(),
     # layout.Columns(),
     # layout.Matrix(),
     # layout.MonadTall(),
@@ -111,14 +131,14 @@ layouts = [
 
 widget_defaults = dict(
     font='sans',
-    fontsize=15,
+    fontsize=12,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        top=bar.Bar(
+        bottom=bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
                 widget.CurrentLayout(),
@@ -163,7 +183,7 @@ screens = [
                     countdown_start=1,
                     fmt='   ',
                 ),
-                #widget.Notify(),
+
             ],
             30,
         ),
@@ -172,22 +192,17 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1",
-         lazy.window.set_position_floating(),
+    Drag([mod], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-
-    Drag([mod], "Button3",
-         lazy.window.set_size_floating(),
+    Drag([mod], "Button3", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-
-    Click([mod], "Button2",
-          lazy.window.bring_to_front())
+    Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = False
-bring_front_click = True
+bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'confirm'},
@@ -207,6 +222,5 @@ floating_layout = layout.Floating(float_rules=[
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-
 
 wmname = "LG3D"
