@@ -1,6 +1,4 @@
-
 from typing import List  # noqa: F401
-
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
@@ -20,33 +18,20 @@ terminal = guess_terminal()
 
 keys = [
 
-    Key([mod], "k",
-        lazy.layout.down(),
-        desc="Move focus down in stack pane"),
+    Key([mod], "h",lazy.layout.left(),),
+    Key([mod], "j", lazy.layout.down(),),
+    Key([mod], "k",lazy.layout.up(),),
+    Key([mod], "l", lazy.layout.right(),),
 
-    Key([mod], "j",
-        lazy.layout.up(),
-        desc="Move focus up in stack pane"),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(),),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(),),
 
-    Key([mod, "control"], "k",
-        lazy.layout.shuffle_down(),
-        desc="Move window down in current stack "),
-
-    Key([mod, "control"], "j",
-        lazy.layout.shuffle_up(),
-        desc="Move window up in current stack "),
+    Key([mod], "t",lazy.window.toggle_floating()),
+    Key([mod], "f",lazy.window.toggle_fullscreen()),
 
     Key([mod], "space",
         lazy.layout.next(),
         desc="Switch window focus to other pane(s) of stack"),
-
-    Key([mod, "shift"], "space",
-        lazy.layout.rotate(),
-        desc="Swap panes of split stack"),
-
-    Key([mod, "shift"], "Return",
-        lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack"),
 
     Key([mod], "Return",
         lazy.spawn(terminal),
@@ -92,6 +77,22 @@ keys = [
         lazy.spawn("scrot "+home+"/Pictures/screenshots/'shot_%Y_%m_%d_%H_%M_%S.png'"),
         lazy.spawn("notify-send SCREEN_SHOT")),
 
+
+    ## MONAD LAYOUT
+    Key([mod, "shift"], "space", lazy.layout.flip(),),
+    Key([mod], "i", lazy.layout.grow(),),
+    Key([mod], "d", lazy.layout.shrink(),),
+    Key([mod], "m", lazy.layout.maximize()),
+    Key([mod], "n", lazy.layout.normalize()),
+
+    ## TILE LAYOUT
+    Key([mod, "shift"], "h",
+        lazy.layout.decrease_ratio()),
+    Key([mod, "shift"], "l",
+        lazy.layout.increase_ratio()),
+    Key([mod], "equal", lazy.layout.increase_nmaster()),
+    Key([mod], "minus", lazy.layout.decrease_nmaster()),
+
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -109,21 +110,23 @@ for i in groups:
 
     ])
 
+
+kwargs = {
+    "margin": 5,
+}
+
 layouts = [
+    layout.Tile(shift_windows=True,
+                ratio=0.51,
+                **kwargs),
+    layout.MonadWide(**kwargs),
     layout.Max(),
-    layout.Stack(
-        num_stacks=2,
-        autosplit=True,
-        margin=5,
-    ),
-    # Try more layouts by unleashing below layouts.
+    # layout.MonadTall(),
+    # layout.Stack(),
     # layout.Bsp(),
     # layout.Columns(),
     # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
     # layout.RatioTile(),
-    # layout.Tile(),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
@@ -131,14 +134,14 @@ layouts = [
 
 widget_defaults = dict(
     font='sans',
-    fontsize=12,
+    fontsize=15,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
                 widget.CurrentLayout(),
