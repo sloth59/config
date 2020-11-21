@@ -39,8 +39,6 @@ super + shift + ctrl + {q,r}
 super + {_,shift + }q
 	bspc node -{c,k}
 
-
-
 # alternate between tiled and monocle layout
 super + m
 	bspc desktop -l next
@@ -54,7 +52,6 @@ super + y
 	bspc node newest.marked.local -n newest.!automatic.local
 
 
-
 # state/flags
 # set the window state
 super + {t,shift + t,shift + space,f}
@@ -65,20 +62,22 @@ super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
 
-
 ###FOCUS/SWAP
 # focus or send the node in the given direction
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
-# focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} ^{1-9,10}
-
 # focus the node for the given path jump
 super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
+# focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} ^{1-9,10}
 
 
 ###PRESELECT
@@ -95,7 +94,6 @@ super + ctrl + space
 	bspc node -p cancel
 
 
-
 ###MOVE/RESIZE
 # expand/contract from bottom and right sides
 super + shift + ctrl + {h,j,k,l}
@@ -104,7 +102,6 @@ super + shift + ctrl + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-
 
 
 ###GAPS
