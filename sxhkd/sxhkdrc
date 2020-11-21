@@ -111,4 +111,4 @@ super + shift + d
 
 # Increase/descrease gap size
 super { ,+ shift }+ z
-	bspc config window_gap $(($(bspc config window_gap) {+,-} 3))
+	bspc config window_gap $(($(bspc config window_gap) {+,-} 2))
