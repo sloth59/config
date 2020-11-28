@@ -126,18 +126,23 @@ bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
 set $screenshot grim $HOME/Pictures/screenshots/scrn_$(date +"%Y_%m_%d_%I_%M_%p").png
+set $areashot grim -g "$(slurp)" $HOME/Pictures/screenshots/scrn_$(date +"%Y_%m_%d_%I_%M_%p").png
 bindsym Print exec $screenshot && notify-send SCREEN_SHOT
+bindsym Shift+Print exec $areashot && notify-send AREA_CAPTURED
 
 bar {
 	swaybar_command waybar
 }
 
 default_border pixel 4
-gaps inner 10
-gaps outer -2
+gaps inner 8
+gaps outer 0
+
+assign [app_id="firefox"] 2
+assign [app_id="libreoffice"] 3
 
 exec mako
 exec mpd
 
-xwayland enable
+xwayland disable
 include /etc/sway/config.d/*
