@@ -2,9 +2,9 @@
 
 set $mod Mod4
 font pango:monospace 10
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -show drun
 floating_modifier $mod
 
 # change focus
@@ -114,11 +114,11 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use brightnessctl to adjust Brightess.
-bindsym XF86MonBrightnessUp exec brightnessctl s +5% && $refresh_i3status
-bindsym XF86MonBrightnessDown exec brightnessctl s 5%- && $refresh_i3status
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5% && $refresh_i3status
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%- && $refresh_i3status
 
 set $screenshot scrot $HOME/Pictures/screenshots/'shot_%Y_%m_%d_%H_%M_%S.png'
-bindsym Print exec $screenshot && notify-send SCREEN_SHOT
+bindsym Print exec --no-startup-id $screenshot && notify-send SCREEN_SHOT
 
 bindsym $mod+b bar mode toggle
 
@@ -147,7 +147,7 @@ bar {
 #gaps inner 10
 #gaps outer -2
 
-exec feh --bg-fill $HOME/.config/coldRipple.jpg
-exec picom
-exec dunst
+exec --no-startup-id feh --bg-fill $HOME/.config/coldRipple.jpg
+exec --no-startup-id picom
+exec --no-startup-id dunst
 exec --no-startup-id nm-applet
