@@ -14,7 +14,7 @@ XF86MonBrightnessDown
 	brightnessctl s 5%-
 
 Print
-	scrot $HOME/Pictures/screenshots/'shot_%Y_%m_%d_%H_%M_%S.png' && notify-send SCREEN_SHOT
+	scrot $HOME/Pictures/'shot_%Y_%m_%d_%H_%M_%S.png' && notify-send SCREEN_SHOT
 
 
 super + Return
