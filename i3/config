@@ -117,7 +117,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5% && $refresh_i3status
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%- && $refresh_i3status
 
-set $screenshot scrot $HOME/Pictures/screenshots/'shot_%Y_%m_%d_%H_%M_%S.png'
+set $screenshot scrot $HOME/Pictures/'shot_%Y_%m_%d_%H_%M_%S.png'
 bindsym Print exec --no-startup-id $screenshot && notify-send SCREEN_SHOT
 
 bindsym $mod+b bar mode toggle
