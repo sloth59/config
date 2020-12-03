@@ -125,8 +125,8 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
-set $screenshot grim $HOME/Pictures/screenshots/scrn_$(date +"%Y_%m_%d_%I_%M_%p").png
-set $areashot grim -g "$(slurp)" $HOME/Pictures/screenshots/scrn_$(date +"%Y_%m_%d_%I_%M_%p").png
+set $screenshot grim $HOME/Pictures/scrn_$(date +"%Y_%m_%d_%I_%M_%p").png
+set $areashot grim -g "$(slurp)" $HOME/Pictures/scrn_$(date +"%Y_%m_%d_%I_%M_%p").png
 bindsym Print exec $screenshot && notify-send SCREEN_SHOT
 bindsym Shift+Print exec $areashot && notify-send AREA_CAPTURED
 
