@@ -4,8 +4,7 @@ from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
-import os
-import subprocess
+import os, subprocess
 
 home = os.path.expanduser('~')
 @hook.subscribe.startup_once
@@ -17,18 +16,33 @@ mod = "mod4"
 terminal = guess_terminal()
 
 keys = [
+    Key([mod], "h",
+        lazy.layout.left()),
+    
+    Key([mod], "j",
+        lazy.layout.down()),
+    
+    Key([mod], "k",
+        lazy.layout.up()),
+    
+    Key([mod], "l",
+        lazy.layout.right()),
 
-    Key([mod], "h",lazy.layout.left(),),
-    Key([mod], "j", lazy.layout.down(),),
-    Key([mod], "k",lazy.layout.up(),),
-    Key([mod], "l", lazy.layout.right(),),
+    
+    Key([mod, "shift"], "j",
+        lazy.layout.shuffle_down()),
+    
+    Key([mod, "shift"], "k",
+        lazy.layout.shuffle_up()),
 
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(),),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(),),
+    
+    Key([mod], "t",
+        lazy.window.toggle_floating()),
+    
+    Key([mod], "f",
+        lazy.window.toggle_fullscreen()),
 
-    Key([mod], "t",lazy.window.toggle_floating()),
-    Key([mod], "f",lazy.window.toggle_fullscreen()),
-
+    
     Key([mod], "space",
         lazy.layout.next(),
         desc="Switch window focus to other pane(s) of stack"),
@@ -79,27 +93,40 @@ keys = [
 
 
     ## MONAD LAYOUT
-    Key([mod, "shift"], "space", lazy.layout.flip(),),
-    Key([mod], "i", lazy.layout.grow(),),
-    Key([mod], "d", lazy.layout.shrink(),),
-    Key([mod], "m", lazy.layout.maximize()),
-    Key([mod], "n", lazy.layout.normalize()),
+    Key([mod, "shift"], "space",
+        lazy.layout.flip()),
+    
+    Key([mod], "i",
+        lazy.layout.grow()),
+    
+    Key([mod], "d",
+        lazy.layout.shrink()),
+    
+    Key([mod], "m",
+        lazy.layout.maximize()),
+    
+    Key([mod], "n",
+        lazy.layout.normalize()),
 
+    
     ## TILE LAYOUT
     Key([mod, "shift"], "h",
         lazy.layout.decrease_ratio()),
+    
     Key([mod, "shift"], "l",
         lazy.layout.increase_ratio()),
-    Key([mod], "equal", lazy.layout.increase_nmaster()),
-    Key([mod], "minus", lazy.layout.decrease_nmaster()),
-
+    
+    Key([mod], "equal",
+        lazy.layout.increase_nmaster()),
+    
+    Key([mod], "minus",
+        lazy.layout.decrease_nmaster()),
 ]
 
 groups = [Group(i) for i in "123456789"]
 
 for i in groups:
     keys.extend([
-
         Key([mod], i.name,
             lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
@@ -107,12 +134,11 @@ for i in groups:
         Key([mod, "shift"], i.name,
             lazy.window.togroup(i.name, switch_group=True),
             desc="Switch to & move focused window to group {}".format(i.name)),
-
     ])
 
 
 kwargs = {
-    "margin": 5,
+    "margin": 5
 }
 
 layouts = [
@@ -177,11 +203,11 @@ screens = [
                     fmt='   {} ',
                     update_interval=10,
                 ),
-                widget.Wallpaper(
-                    directory='/usr/share/backgrounds/archlinux/',
-                    random_selection=True,
-                    fmt='   ',
-                ),
+                #widget.Wallpaper(
+                #    directory='/usr/share/backgrounds/',
+                #    random_selection=True,
+                #    fmt='   ',
+                #),
                 widget.QuickExit(
                     countdown_start=1,
                     fmt='   ',
@@ -195,11 +221,16 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
+    Drag([mod], "Button1",
+         lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
+    
+    Drag([mod], "Button3",
+         lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+
+    Click([mod], "Button2",
+          lazy.window.bring_to_front())
 ]
 
 dgroups_key_binder = None
