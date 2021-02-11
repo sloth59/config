@@ -1,9 +1,10 @@
-
 """VIM-PLUG as plugin manager
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'jiangmiao/auto-pairs'  "auto-pair
 Plug 'mattn/emmet-vim'  "emmet support
+Plug 'junegunn/goyo.vim'  "distraction free writing
+Plug 'junegunn/seoul256.vim'  "hyperfocus writing
 Plug 'sheerun/vim-polyglot'   "language packs
 Plug 'itchyny/lightline.vim'  "status line
 Plug 'dracula/vim'  "theme
@@ -13,6 +14,7 @@ Plug 'dracula/vim'  "theme
 " Plug 'prettier/vim-prettier'  "preetier code format
 " Plug 'morhetz/gruvbox'  "theme
 " Plug 'NLKNguyen/papercolor-theme'  "theme
+" Plug 'junegunn/seoul256.vim'  "theme
 
 call plug#end()
 
