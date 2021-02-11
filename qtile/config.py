@@ -1,3 +1,29 @@
+# Copyright (c) 2010 Aldo Cortesi
+# Copyright (c) 2010, 2014 dequis
+# Copyright (c) 2012 Randall Ma
+# Copyright (c) 2012-2014 Tycho Andersen
+# Copyright (c) 2012 Craig Barnes
+# Copyright (c) 2013 horsik
+# Copyright (c) 2013 Tao Sauvage
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 from typing import List  # noqa: F401
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Screen
@@ -67,8 +93,8 @@ keys = [
         lazy.shutdown(),
         desc="Shutdown qtile"),
 
-    Key([mod], "r",
-        lazy.spawncmd(),
+    Key([mod], "r", # lazy.spawncmd(),
+        lazy.spawn("rofi -show drun"),
         desc="Spawn a command using a prompt widget"),
 
 
@@ -174,20 +200,20 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                widget.Systray(),
-                widget.Cmus(),
                 widget.Clipboard(
                     fmt='  {} ',
                 ),
+                widget.Cmus(),
+                widget.Systray(),
                 widget.CapsNumLockIndicator(),
                 widget.Volume(
                     fmt='   {} ',
                 ),
-                widget.Wlan(
-                    interface='wlp4s0',
-                    format='{essid}',
-                    fmt='   {} ',
-                ),
+                #widget.Wlan(       # requires iwlib
+                #    interface='wlp4s0',
+                #    format='{essid}',
+                #    fmt='   {} ',
+                #),
                 widget.Battery(
                     charge_char=' ',
                     discharge_char='',
