@@ -5,7 +5,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
+set $term kitty
 set $menu wofi | xargs swaymsg exec --
 
 
@@ -38,7 +38,8 @@ input "1267:12433:ELAN0504:00_04F3:3091_Touchpad" {
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e exec wlogout 
+    # swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 # Moving
     bindsym $mod+$left focus left
@@ -101,6 +102,7 @@ input "1267:12433:ELAN0504:00_04F3:3091_Touchpad" {
     bindsym $mod+Shift+minus move scratchpad
     bindsym $mod+minus scratchpad show
 
+# Resize windows
 mode "resize" {
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
@@ -118,31 +120,50 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
+# Volume keys
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+# Brightness keys
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
+# Screenshot
 set $screenshot grim $HOME/Pictures/scrn_$(date +"%Y_%m_%d_%I_%M_%p").png
 set $areashot grim -g "$(slurp)" $HOME/Pictures/scrn_$(date +"%Y_%m_%d_%I_%M_%p").png
 bindsym Print exec $screenshot && notify-send SCREEN_SHOT
 bindsym Shift+Print exec $areashot && notify-send AREA_CAPTURED
 
+# Bar
 bar {
 	swaybar_command waybar
 }
 
+# Gaps and borders
 default_border pixel 4
 gaps inner 8
 gaps outer 0
 
+# Window Rules
 assign [app_id="firefox"] 2
 assign [app_id="libreoffice"] 3
 
+# Autostart
 exec mako
 exec mpd
 
+# Gtk theme settings
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Arc-Dark'
+    gsettings set $gnome-schema icon-theme 'Papirus-Dark'
+    # gsettings set $gnome-schema cursor-theme 'cursor theme name'
+    gsettings set $gnome-schema font-name 'Sans 10'
+    gsettings set $gnome-scheme monospace-font-name 'Hack 10'
+}
+
+# XWayland setting
 xwayland disable
+
 include /etc/sway/config.d/*
